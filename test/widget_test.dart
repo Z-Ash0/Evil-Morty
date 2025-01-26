@@ -7,13 +7,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:rick_and_morty_app/core/routes/app_routes.dart';
 
 import 'package:rick_and_morty_app/main.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const RickAndMortyApp());
+    await tester.pumpWidget(RickAndMortyApp(appRouter: AppRoutes()));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

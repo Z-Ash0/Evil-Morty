@@ -1,4 +1,2 @@
-class AppConstants {
-  final String charactersScreen = '/';
-  final String detailsScreen = '';
-}
+const String charactersScreen = '/';
+const String detailsScreen = '';

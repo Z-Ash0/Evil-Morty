@@ -14,4 +14,5 @@ class Api {
 
 class EndPoints {
   static const String baseUrl = 'https://rickandmortyapi.com/api/';
+  static const String characters = 'character';
 }
