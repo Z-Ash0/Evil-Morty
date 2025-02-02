@@ -4,7 +4,7 @@ class Api {
   static const String status = 'status';
   static const String species = 'species';
   static const String type = 'type';
-  static const String gender = 'id';
+  static const String gender = 'gender';
   static const String origin = 'origin';
   static const String results = 'results';
   static const String location = 'location';
@@ -14,5 +14,5 @@ class Api {
 
 class EndPoints {
   static const String baseUrl = 'https://rickandmortyapi.com/api/';
-  static const String characters = 'character';
+  static const String characters = 'character/';
 }
