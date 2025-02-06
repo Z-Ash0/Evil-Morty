@@ -14,7 +14,8 @@ class CharactersServices {
     try {
       final response = await dio.get(EndPoints.characters);
       return response.data[Api.results];
-    } on DioException catch (e) {
+    } on DioException {
+      //! Don't forget to handle this exception
       return [];
     }
   }

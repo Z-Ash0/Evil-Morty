@@ -15,26 +15,32 @@ class CharactersScreen extends StatefulWidget {
 }
 
 class _CharactersScreenState extends State<CharactersScreen> {
+  List<CharactersModel> allCharacters = [];
   @override
   void initState() {
     super.initState();
+    //* The purpose of the next line is to provide the Bloc bcz as we know BlocProvider provides Bloc lazely so we should invoke it explicitly
     BlocProvider.of<CharactersCubit>(context).getCharactersFromRepo();
   }
 
   @override
   Widget build(BuildContext context) {
+    final double startingPicSize = MediaQuery.of(context).size.height / 3.15;
     return SafeArea(
       child: Scaffold(
+        backgroundColor: const Color.fromARGB(255, 2, 81, 47),
         body: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
+          padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
           child: SingleChildScrollView(
               child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const CustomAppBar(),
+              CustomAppBar(allCharacters: allCharacters),
               Center(
                   child: Image.asset(Assets.assetsHomePage,
-                      width: 400, height: 400, fit: BoxFit.cover)),
+                      width: startingPicSize,
+                      height: startingPicSize,
+                      fit: BoxFit.cover)),
               blocWidget(),
             ],
           )),
@@ -42,37 +48,37 @@ class _CharactersScreenState extends State<CharactersScreen> {
       ),
     );
   }
-}
 
-Widget blocWidget() {
-  List<CharactersModel> allCharacters;
-  return BlocBuilder<CharactersCubit, CharactersState>(
-    builder: (context, state) {
-      if (state is AllCharactersLoading) {
-        return Center(
-            child:
-                Image.asset(Assets.assetsLoadingRick, width: 300, height: 300));
-      } else if (state is AllCharactersLoaded) {
-        allCharacters = state.charactersList;
-        return buildCharacterItems(allCharacters);
-      } else {
-        return const SizedBox.shrink();
-      }
-    },
-  );
-}
+  Widget blocWidget() {
+    return BlocBuilder<CharactersCubit, CharactersState>(
+      builder: (context, state) {
+        if (state is AllCharactersLoading) {
+          return Center(
+              child: Image.asset(Assets.assetsLoadingRick,
+                  width: 300, height: 300));
+        } else if (state is AllCharactersLoaded) {
+          allCharacters = state.charactersList;
+          return buildCharacterItems(allCharacters);
+        } else {
+          return const SizedBox.shrink();
+        }
+      },
+    );
+  }
 
-Widget buildCharacterItems(List<CharactersModel> characters) {
-  return GridView.builder(
-    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-      crossAxisCount: 2,
-      childAspectRatio: 2 / 3,
-      crossAxisSpacing: 20,
-    ),
-    shrinkWrap: true,
-    physics: const NeverScrollableScrollPhysics(),
-    itemBuilder: (context, index) =>
-        CharacterItem(character: characters[index]),
-    itemCount: characters.length,
-  );
+  Widget buildCharacterItems(List<CharactersModel> characters) {
+    return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        childAspectRatio: 2.5 / 3,
+        crossAxisSpacing: 20,
+        mainAxisSpacing: 20,
+      ),
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (context, index) =>
+          CharacterItem(character: characters[index]),
+      itemCount: characters.length,
+    );
+  }
 }

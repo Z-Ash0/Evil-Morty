@@ -5,8 +5,10 @@ class CustomIconButton extends StatelessWidget {
   const CustomIconButton({
     super.key,
     required this.icon,
+    required this.onTapped,
   });
   final Icon icon;
+  final VoidCallback onTapped;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class CustomIconButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(5),
       ),
       child: IconButton(
-        onPressed: () {},
+        onPressed: onTapped,
         icon: icon,
         color: AppColors.primaryColor,
       ),

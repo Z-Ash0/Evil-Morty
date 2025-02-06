@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty_app/core/cubit/characters_state.dart';
 import 'package:rick_and_morty_app/features/characters/repository/characters_repository.dart';
@@ -5,6 +6,7 @@ import 'package:rick_and_morty_app/features/characters/repository/characters_rep
 class CharactersCubit extends Cubit<CharactersState> {
   CharactersCubit(this.charactersRepository) : super(CharactersState());
   final CharactersRepository charactersRepository;
+  TextEditingController txtController = TextEditingController();
 
   Future<void> getCharactersFromRepo() async {
     emit(AllCharactersLoading());
