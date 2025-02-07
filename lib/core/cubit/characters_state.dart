@@ -13,3 +13,9 @@ class AllCharactersFailed extends CharactersState {
   final String errorMsg;
   AllCharactersFailed({required this.errorMsg});
 }
+
+class AllCharactersFiltered extends CharactersState {
+  final List<CharactersModel> searchedCharacters;
+
+  AllCharactersFiltered({required this.searchedCharacters});
+}

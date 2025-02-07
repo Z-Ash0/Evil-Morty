@@ -13,8 +13,6 @@ class SearchTextField extends StatefulWidget {
 }
 
 class _SearchTextFieldState extends State<SearchTextField> {
-  List<CharactersModel> searchedCharacters = [];
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,25 +31,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
         cursorColor: AppColors.searchColor,
         cursorHeight: 20,
         style: TextStyle(color: AppColors.searchColor, fontSize: 18),
-
-        //* assigning the values of the searched elements to the searchedCharacters by looping around each element of the allCharacters list and filtering based on the condintion we've put
-        onChanged: (searchedChar) =>
-            addSearchedItemsToSearchedList(searchedChar),
       ),
     );
-  }
-
-  void addSearchedItemsToSearchedList(String searchedChar) {
-    if (searchedChar.isEmpty) {
-      // Reset to the full list if the search field is empty
-      searchedCharacters = widget.allCharactersList;
-    } else {
-      // Filter characters based on the search query
-      searchedCharacters = widget.allCharactersList
-          .where((character) =>
-              character.name.toLowerCase().startsWith(searchedChar))
-          .toList();
-    }
-    setState(() {});
   }
 }

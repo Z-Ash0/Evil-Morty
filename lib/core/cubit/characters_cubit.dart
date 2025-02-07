@@ -1,22 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty_app/core/cubit/characters_state.dart';
+import 'package:rick_and_morty_app/features/characters/model/characters_model.dart';
 import 'package:rick_and_morty_app/features/characters/repository/characters_repository.dart';
 
 class CharactersCubit extends Cubit<CharactersState> {
-  CharactersCubit(this.charactersRepository) : super(CharactersState());
   final CharactersRepository charactersRepository;
   TextEditingController txtController = TextEditingController();
+  List<CharactersModel> allCharacters = [];
+
+  CharactersCubit(this.charactersRepository) : super(CharactersState()) {
+    txtController.addListener(() {
+      emit(AllCharactersFiltered(
+          searchedCharacters: filteredList(txtController.text.toLowerCase())));
+    });
+  }
 
   Future<void> getCharactersFromRepo() async {
     emit(AllCharactersLoading());
     try {
-      await charactersRepository.fetchCharactersData().then((characters) {
-        emit(AllCharactersLoaded(charactersList: characters));
-      });
+      allCharacters = await charactersRepository.fetchCharactersData();
+      emit(AllCharactersLoaded(charactersList: allCharacters));
     } on Exception catch (e) {
-      emit(AllCharactersFailed(
-          errorMsg: e.toString())); //! Check the error message
+      emit(AllCharactersFailed(errorMsg: e.toString()));
+      //! Check the error message
     }
+  }
+
+  //* assigning the values of the searched elements to the searchedCharacters by looping around each element of the allCharacters list and filtering based on the condintion we've put
+  List<CharactersModel> filteredList(String searchedChar) {
+    return allCharacters
+        .where((character) =>
+            character.name.toLowerCase().startsWith(searchedChar))
+        .toList();
   }
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty_app/core/routes/app_routes.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(RickAndMortyApp(appRouter: AppRoutes()));
 }
 
