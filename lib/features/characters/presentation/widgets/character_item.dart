@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty_app/core/utils/app_assets.dart';
+import 'package:rick_and_morty_app/core/utils/app_constants.dart';
 import 'package:rick_and_morty_app/features/characters/model/characters_model.dart';
 
 class CharacterItem extends StatelessWidget {
@@ -9,7 +10,8 @@ class CharacterItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () =>
+          Navigator.of(context).pushNamed(detailsScreen, arguments: character),
       child: Hero(
         tag: character.id,
         child: Card(

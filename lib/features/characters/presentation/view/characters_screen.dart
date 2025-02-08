@@ -39,10 +39,11 @@ class _CharactersScreenState extends State<CharactersScreen> {
               CustomAppBar(
                   allCharacters: context.read<CharactersCubit>().allCharacters),
               Center(
-                  child: Image.asset(Assets.assetsHomePage,
-                      width: startingPicSize,
-                      height: startingPicSize,
-                      fit: BoxFit.cover)),
+                child: Image.asset(Assets.assetsHomePage,
+                    width: startingPicSize,
+                    height: startingPicSize,
+                    fit: BoxFit.cover),
+              ),
               blocWidget(),
             ],
           )),

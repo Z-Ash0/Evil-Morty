@@ -36,9 +36,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
-            padding: EdgeInsets.only(right: sizeSetter(context, 0.1)),
+            padding: EdgeInsets.only(right: sizeSetterWidth(context, 0.1)),
             child: Image.asset(Assets.assetsAppBar,
-                width: sizeSetter(context, 0.2)),
+                width: sizeSetterWidth(context, 0.2)),
           ),
           actionButton()
         ],
