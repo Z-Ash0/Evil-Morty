@@ -11,5 +11,6 @@ class Assets {
   static const String assetsLoadingIndicator =
       "assets/images/oadingIndicator.gif";
 
-  static const String assetsSplash = "assets/images/splash.png";
+  static const String assetsPlaceHolder = "assets/images/place_holder.png";
+  static const String assetsSplash = 'assets/images/splash.png';
 }

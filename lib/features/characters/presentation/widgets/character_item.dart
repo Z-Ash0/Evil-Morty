@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:rick_and_morty_app/core/utils/app_assets.dart';
 import 'package:rick_and_morty_app/core/utils/app_constants.dart';
 import 'package:rick_and_morty_app/features/characters/model/characters_model.dart';
+import 'package:rick_and_morty_app/features/characters/presentation/widgets/cached_image.dart';
 
 class CharacterItem extends StatelessWidget {
   const CharacterItem({super.key, required this.character});
@@ -19,19 +19,7 @@ class CharacterItem extends StatelessWidget {
           clipBehavior: Clip.antiAlias,
           child: Column(
             children: [
-              FadeInImage.assetNetwork(
-                image: character.image,
-                placeholder: Assets.assetsLoadingIndicator,
-                imageErrorBuilder: (context, error, stackTrace) {
-                  return Image.asset(
-                    Assets.assetsSplash,
-                    fit: BoxFit.cover,
-                    height: 200,
-                  );
-                },
-                fit: BoxFit.cover,
-                width: double.infinity,
-              ),
+              CachedImage(image: character.image),
               Expanded(
                 child: Center(
                   child: Text(

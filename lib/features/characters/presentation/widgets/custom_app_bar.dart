@@ -19,8 +19,8 @@ class _CustomAppBarState extends State<CustomAppBar> {
 
   void toSearchTap() {
     //* It's like navigation to another page partially inside the same page
-    ModalRoute.of(context)!
-        .addLocalHistoryEntry(LocalHistoryEntry(onRemove: toStopSearching));
+    // ModalRoute.of(context)!
+    //     .addLocalHistoryEntry(LocalHistoryEntry(onRemove: toStopSearching));
     setState(() => isSearching = true);
   }
 
@@ -31,7 +31,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 10),
+      padding: const EdgeInsets.only(top: 10, bottom: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -65,6 +65,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
               onTapped: () {
                 //* Using the txtController from the cubit
                 context.read<CharactersCubit>().txtController.clear();
+                // Navigator.pop(context);
                 toStopSearching();
               },
             ),

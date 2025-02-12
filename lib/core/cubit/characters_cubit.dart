@@ -16,10 +16,14 @@ class CharactersCubit extends Cubit<CharactersState> {
     });
   }
 
-  Future<void> getCharactersFromRepo() async {
-    emit(AllCharactersLoading());
+  Future<void> getCharactersFromRepo({bool isMore = false}) async {
+    if (isMore) {
+    } else {
+      emit(AllCharactersLoading());
+    }
     try {
-      allCharacters = await charactersRepository.fetchCharactersData();
+      allCharacters =
+          await charactersRepository.fetchCharactersData(isMore: isMore);
       emit(AllCharactersLoaded(charactersList: allCharacters));
     } on Exception catch (e) {
       emit(AllCharactersFailed(errorMsg: e.toString()));

@@ -19,10 +19,11 @@ class AppRoutes {
     switch (routeSettings.name) {
       case charactersScreen:
         return MaterialPageRoute(
-            builder: (context) => BlocProvider(
-                  create: (context) => charactersCubit,
-                  child: const CharactersScreen(),
-                ));
+          builder: (context) => BlocProvider(
+            create: (context) => charactersCubit,
+            child: const CharactersScreen(),
+          ),
+        );
       case detailsScreen:
         final character = routeSettings.arguments as CharactersModel;
         return MaterialPageRoute(

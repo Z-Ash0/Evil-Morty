@@ -9,10 +9,15 @@ class CharactersServices {
     dio.interceptors.add(LogInterceptor(
         request: true, requestBody: true, responseBody: true, error: true));
   }
+  int pageNumber = 1;
 
-  Future<List<dynamic>> getCharacterData() async {
+  Future<List<dynamic>> getCharacterData({bool isMore = false}) async {
     try {
-      final response = await dio.get(EndPoints.characters);
+      if (isMore) {
+        pageNumber++;
+      }
+      final response =
+          await dio.get('${EndPoints.characters}?page=$pageNumber');
       return response.data[Api.results];
     } on DioException {
       //! Don't forget to handle this exception

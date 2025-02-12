@@ -4,11 +4,15 @@ import 'package:rick_and_morty_app/features/characters/web_services/characters_s
 class CharactersRepository {
   CharactersRepository(this.charactersServices);
   final CharactersServices charactersServices;
+  List<CharactersModel> allCharactersList = [];
 
-  Future<List<CharactersModel>> fetchCharactersData() async {
-    final characterList = await charactersServices.getCharacterData();
-    return characterList
+  Future<List<CharactersModel>> fetchCharactersData(
+      {bool isMore = false}) async {
+    final characterList =
+        await charactersServices.getCharacterData(isMore: isMore);
+    allCharactersList += characterList
         .map((character) => CharactersModel.fromJson(character))
         .toList();
+    return allCharactersList;
   }
 }
