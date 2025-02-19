@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:rick_and_morty_app/core/functions/size_functions.dart';
+import 'package:rick_and_morty_app/core/responsive/size_detection_helper.dart';
 import 'package:rick_and_morty_app/core/utils/app_colors.dart';
 import 'package:rick_and_morty_app/features/characters/model/characters_model.dart';
 
 class CustomSliverAppBar extends StatelessWidget {
-  const CustomSliverAppBar({
-    super.key,
-    required this.character,
-  });
+  const CustomSliverAppBar({super.key, required this.character});
 
   final CharactersModel character;
 
@@ -29,18 +26,22 @@ class CustomSliverAppBar extends StatelessWidget {
           ),
         ),
         title: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
+          padding: EdgeInsets.symmetric(horizontal: context.setMinSize(8)),
           decoration: BoxDecoration(
             color: AppColors.bgColor,
             borderRadius: BorderRadius.circular(10),
           ),
           child: Text(
             character.name,
-            style: const TextStyle(color: Colors.white, fontSize: 28),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: context.setMinSize(18),
+            ),
           ),
         ),
       ),
-      expandedHeight: sizeSetterHeight(context, 0.6),
+      expandedHeight: context.screenHeight * 0.58,
+      clipBehavior: Clip.antiAlias,
     );
   }
 }

@@ -3,12 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:rick_and_morty_app/core/utils/app_assets.dart';
 
 class CachedImage extends StatelessWidget {
-  const CachedImage({
-    super.key,
-    required this.image,
-  });
+  const CachedImage({super.key, required this.image, required this.height});
 
   final String image;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +17,7 @@ class CachedImage extends StatelessWidget {
         return Image.asset(
           Assets.assetsPlaceHolder,
           fit: BoxFit.cover,
-          height: 200,
+          height: height,
         );
       },
       fit: BoxFit.cover,

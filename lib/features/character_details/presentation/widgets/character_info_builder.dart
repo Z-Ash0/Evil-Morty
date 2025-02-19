@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rick_and_morty_app/core/functions/size_functions.dart';
+import 'package:rick_and_morty_app/core/responsive/size_detection_helper.dart';
 
 class CharacterInfoBuilder extends StatelessWidget {
   const CharacterInfoBuilder(this.title, this.info, this.context, this.indent,
@@ -20,19 +20,21 @@ class CharacterInfoBuilder extends StatelessWidget {
             children: [
               TextSpan(
                 text: title,
-                style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    fontSize: 28),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  fontSize: context.setMinSize(14),
+                ),
               ),
               TextSpan(
-                  text: info,
-                  style: const TextStyle(color: Colors.white, fontSize: 24))
+                text: info,
+                style: TextStyle(
+                    color: Colors.white, fontSize: context.setMinSize(12)),
+              )
             ],
           ),
         ),
-        Divider(
-            endIndent: sizeSetterWidth(context, indent), color: Colors.yellow)
+        Divider(endIndent: context.screenWidth * indent, color: Colors.yellow)
       ],
     );
   }

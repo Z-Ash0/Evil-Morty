@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty_app/core/cubit/characters_cubit.dart';
-import 'package:rick_and_morty_app/core/functions/size_functions.dart';
+import 'package:rick_and_morty_app/core/responsive/size_detection_helper.dart';
+import 'package:rick_and_morty_app/core/responsive/size_provider.dart';
 import 'package:rick_and_morty_app/core/utils/app_assets.dart';
 import 'package:rick_and_morty_app/features/characters/model/characters_model.dart';
 import 'package:rick_and_morty_app/features/characters/presentation/widgets/custom_icon_button.dart';
@@ -31,16 +32,26 @@ class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 10, bottom: 10),
+      padding: EdgeInsets.only(
+          top: context.setMinSize(10), bottom: context.setMinSize(10)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
-            padding: EdgeInsets.only(right: sizeSetterWidth(context, 0.1)),
+            padding: EdgeInsets.only(right: context.sizeProvider.width * 0.1),
             child: Image.asset(Assets.assetsAppBar,
-                width: sizeSetterWidth(context, 0.2)),
+                width: context.sizeProvider.width * 0.25),
           ),
-          actionButton()
+          SizeProvider(
+            baseSize: const Size(490, 360),
+            width: context.setMinSize(490),
+            height: context.setMinSize(360),
+            child: Builder(
+              builder: (context) {
+                return actionButton();
+              },
+            ),
+          )
         ],
       ),
     );
@@ -49,7 +60,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
   Widget actionButton() {
     if (!isSearching) {
       return CustomIconButton(
-        icon: const Icon(Icons.search),
+        icon: Icon(Icons.search, size: context.setMinSize(16)),
         onTapped: toSearchTap,
       );
     } else {
@@ -61,7 +72,10 @@ class _CustomAppBarState extends State<CustomAppBar> {
               allCharactersList: widget.allCharacters,
             )),
             CustomIconButton(
-              icon: const Icon(Icons.clear),
+              icon: Icon(
+                Icons.clear,
+                size: context.setMinSize(16),
+              ),
               onTapped: () {
                 //* Using the txtController from the cubit
                 context.read<CharactersCubit>().txtController.clear();

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty_app/core/cubit/characters_cubit.dart';
 import 'package:rick_and_morty_app/core/cubit/characters_state.dart';
-import 'package:rick_and_morty_app/core/functions/size_functions.dart';
+import 'package:rick_and_morty_app/core/responsive/device_utilities.dart';
+import 'package:rick_and_morty_app/core/responsive/size_detection_helper.dart';
 import 'package:rick_and_morty_app/core/utils/app_assets.dart';
 import 'package:rick_and_morty_app/core/utils/app_colors.dart';
 import 'package:rick_and_morty_app/features/characters/model/characters_model.dart';
@@ -45,8 +46,6 @@ class _CharactersScreenState extends State<CharactersScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //* Using .sizeOf(context) is better than using .of(context).size
-    final double startingPicSize = MediaQuery.sizeOf(context).height / 3.15;
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.bgColor,
@@ -54,7 +53,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
           controller: scrollController,
           slivers: [
             SliverAppBar(
-              toolbarHeight: sizeSetterHeight(context, 1 / 18),
+              toolbarHeight: context.sizeProvider.height / 18,
               backgroundColor: AppColors.bgColor,
               title: CustomAppBar(
                   allCharacters: context.read<CharactersCubit>().allCharacters),
@@ -62,14 +61,16 @@ class _CharactersScreenState extends State<CharactersScreen> {
             ),
             SliverToBoxAdapter(
               child: Center(
-                child: Image.asset(Assets.assetsHomePage,
-                    width: startingPicSize,
-                    height: startingPicSize,
-                    fit: BoxFit.cover),
+                child: Image.asset(
+                  Assets.assetsHomePage,
+                  width: context.sizeProvider.height / 3.15,
+                  height: context.sizeProvider.height / 3.15,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding: EdgeInsets.symmetric(horizontal: context.setMinSize(10)),
               sliver: blocWidget(),
             ),
           ],
@@ -84,8 +85,12 @@ class _CharactersScreenState extends State<CharactersScreen> {
         if (state is AllCharactersLoading) {
           return SliverToBoxAdapter(
             child: Center(
-                child: Image.asset(Assets.assetsLoadingRick,
-                    width: 300, height: 300)),
+              child: Image.asset(
+                Assets.assetsLoadingRick,
+                width: context.setMinSize(300),
+                height: context.setMinSize(300),
+              ),
+            ),
           );
         } else if (state is AllCharactersLoaded) {
           context.read<CharactersCubit>().allCharacters = state.charactersList;
@@ -102,11 +107,12 @@ class _CharactersScreenState extends State<CharactersScreen> {
 
   Widget buildCharacterItems(List<CharactersModel> characters) {
     return SliverGrid.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: DeviceUtilities.gridChildrenCount(context,
+            mobileCount: 2, tabletCount: 3, desktopCount: 4),
         childAspectRatio: 2.5 / 3,
-        crossAxisSpacing: 20,
-        mainAxisSpacing: 20,
+        crossAxisSpacing: context.setMinSize(20),
+        mainAxisSpacing: context.setMinSize(20),
       ),
       itemBuilder: (context, index) =>
           CharacterItem(character: characters[index]),
