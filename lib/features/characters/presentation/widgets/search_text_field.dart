@@ -19,7 +19,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
     return Container(
       decoration: BoxDecoration(
         color: AppColors.secondaryColor.withOpacity(0.4),
-        borderRadius: BorderRadius.circular(context.setMinSize(5)),
+        borderRadius: BorderRadius.circular(5),
       ),
       child: TextField(
         controller: context.read<CharactersCubit>().txtController,
@@ -28,14 +28,15 @@ class _SearchTextFieldState extends State<SearchTextField> {
           hintText: 'Enter a character....',
           hintStyle: TextStyle(
             color: AppColors.searchColor,
-            fontSize: context.setMinSize(14),
+            fontSize: context.setMinSize(12),
           ),
           contentPadding: EdgeInsets.only(left: context.setMinSize(10)),
         ),
         cursorColor: AppColors.searchColor,
+        cursorHeight: context.setMinSize(15),
         style: TextStyle(
           color: AppColors.searchColor,
-          fontSize: context.setMinSize(14),
+          fontSize: context.setMinSize(12),
         ),
       ),
     );

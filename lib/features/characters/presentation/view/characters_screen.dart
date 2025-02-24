@@ -55,6 +55,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
             SliverAppBar(
               toolbarHeight: context.sizeProvider.height / 18,
               backgroundColor: AppColors.bgColor,
+              surfaceTintColor: Colors.transparent,
               title: CustomAppBar(
                   allCharacters: context.read<CharactersCubit>().allCharacters),
               floating: true,
@@ -111,8 +112,8 @@ class _CharactersScreenState extends State<CharactersScreen> {
         crossAxisCount: DeviceUtilities.gridChildrenCount(context,
             mobileCount: 2, tabletCount: 3, desktopCount: 4),
         childAspectRatio: 2.5 / 3,
-        crossAxisSpacing: context.setMinSize(20),
-        mainAxisSpacing: context.setMinSize(20),
+        crossAxisSpacing: context.setMinSize(10),
+        mainAxisSpacing: context.setMinSize(10),
       ),
       itemBuilder: (context, index) =>
           CharacterItem(character: characters[index]),

@@ -17,6 +17,7 @@ class CustomSliverAppBar extends StatelessWidget {
       ),
       pinned: true,
       backgroundColor: AppColors.bgColor,
+      surfaceTintColor: Colors.transparent,
       flexibleSpace: FlexibleSpaceBar(
         background: Hero(
           tag: character.id,
@@ -35,13 +36,12 @@ class CustomSliverAppBar extends StatelessWidget {
             character.name,
             style: TextStyle(
               color: Colors.white,
-              fontSize: context.setMinSize(18),
+              fontSize: context.setMinSize(16),
             ),
           ),
         ),
       ),
-      expandedHeight: context.screenHeight * 0.58,
-      clipBehavior: Clip.antiAlias,
+      expandedHeight: context.screenHeight * 0.6,
     );
   }
 }

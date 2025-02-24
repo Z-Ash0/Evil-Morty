@@ -6,4 +6,5 @@ class AppColors {
   static final Color yellowColor = Colors.yellow.shade400;
   static final Color searchColor = Colors.blueGrey.shade100;
   static const Color bgColor = Color.fromARGB(255, 2, 81, 47);
+  static const Color screen1BgColor = Color(0xffa58b46);
 }

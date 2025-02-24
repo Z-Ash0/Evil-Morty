@@ -91,7 +91,7 @@ class CharacterDetails extends StatelessWidget {
                     ),
                   ),
                   SliverToBoxAdapter(
-                    child: SizedBox(height: context.screenHeight * 0.6),
+                    child: SizedBox(height: context.screenHeight * 0.8),
                   )
                 ],
               );

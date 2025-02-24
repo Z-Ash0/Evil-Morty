@@ -20,9 +20,9 @@ class DeviceUtilities {
       int? desktopCount,
       int? elseCount}) {
     if (isMobile(context)) {
-      return mobileCount;
+      return !context.isLandScape ? mobileCount : mobileCount + 1;
     } else if (isTablet(context) && tabletCount != null) {
-      return tabletCount;
+      return !context.isLandScape ? tabletCount : tabletCount + 1;
     } else if (isDesktop(context) && desktopCount != null) {
       return desktopCount;
     } else {
