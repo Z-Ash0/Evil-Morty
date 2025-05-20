@@ -4,7 +4,7 @@ import 'package:rick_and_morty_app/features/characters/presentation/manager/char
 import 'package:rick_and_morty_app/core/responsive/size_detection_helper.dart';
 import 'package:rick_and_morty_app/core/responsive/size_provider.dart';
 import 'package:rick_and_morty_app/core/utils/app_assets.dart';
-import 'package:rick_and_morty_app/features/characters/data/model/characters_model.dart';
+import 'package:rick_and_morty_app/features/characters/data/models/characters_model.dart';
 import 'package:rick_and_morty_app/features/characters/presentation/widgets/custom_icon_button.dart';
 import 'package:rick_and_morty_app/features/characters/presentation/widgets/search_text_field.dart';
 

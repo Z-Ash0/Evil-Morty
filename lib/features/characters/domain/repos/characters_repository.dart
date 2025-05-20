@@ -1,5 +1,7 @@
-import 'package:rick_and_morty_app/features/characters/data/model/characters_model.dart';
+import 'package:rick_and_morty_app/core/networking/api_result.dart';
+import 'package:rick_and_morty_app/features/characters/data/models/characters_model.dart';
 
 abstract class CharactersRepository {
-  Future<List<CharactersModel>> fetchCharactersData({bool isMore = false});
+  Future<ApiResult<List<CharactersModel>>> fetchCharactersData(
+      {bool isMore = false});
 }

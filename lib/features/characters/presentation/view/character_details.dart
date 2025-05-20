@@ -3,7 +3,7 @@ import 'package:rick_and_morty_app/core/responsive/size_detection_helper.dart';
 import 'package:rick_and_morty_app/core/responsive/size_provider.dart';
 import 'package:rick_and_morty_app/core/utils/app_colors.dart';
 import 'package:rick_and_morty_app/core/utils/app_constants.dart';
-import 'package:rick_and_morty_app/features/characters/data/model/characters_model.dart';
+import 'package:rick_and_morty_app/features/characters/data/models/characters_model.dart';
 import 'package:rick_and_morty_app/features/characters/presentation/widgets/character_info_builder.dart';
 import 'package:rick_and_morty_app/features/characters/presentation/widgets/custom_sliver_app_bar.dart';
 

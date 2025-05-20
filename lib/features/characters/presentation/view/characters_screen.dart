@@ -6,7 +6,7 @@ import 'package:rick_and_morty_app/core/responsive/device_utilities.dart';
 import 'package:rick_and_morty_app/core/responsive/size_detection_helper.dart';
 import 'package:rick_and_morty_app/core/utils/app_assets.dart';
 import 'package:rick_and_morty_app/core/utils/app_colors.dart';
-import 'package:rick_and_morty_app/features/characters/data/model/characters_model.dart';
+import 'package:rick_and_morty_app/features/characters/data/models/characters_model.dart';
 import 'package:rick_and_morty_app/features/characters/presentation/widgets/custom_app_bar.dart';
 import 'package:rick_and_morty_app/features/characters/presentation/widgets/character_item.dart';
 

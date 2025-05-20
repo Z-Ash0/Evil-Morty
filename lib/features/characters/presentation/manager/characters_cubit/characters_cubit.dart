@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rick_and_morty_app/features/characters/domain/repos/characters_repository.dart';
 import 'package:rick_and_morty_app/features/characters/presentation/manager/characters_cubit/characters_state.dart';
-import 'package:rick_and_morty_app/features/characters/data/model/characters_model.dart';
-import 'package:rick_and_morty_app/features/characters/data/repository/characters_repository_impl.dart';
+import 'package:rick_and_morty_app/features/characters/data/models/characters_model.dart';
 
 class CharactersCubit extends Cubit<CharactersState> {
-  final CharactersRepositoryImpl charactersRepository;
+  final CharactersRepository charactersRepository;
   TextEditingController txtController = TextEditingController();
   List<CharactersModel> allCharacters = [];
 
@@ -21,14 +21,14 @@ class CharactersCubit extends Cubit<CharactersState> {
     } else {
       emit(AllCharactersLoading());
     }
-    try {
-      allCharacters =
-          await charactersRepository.fetchCharactersData(isMore: isMore);
-      emit(AllCharactersLoaded(charactersList: allCharacters));
-    } on Exception catch (e) {
-      emit(AllCharactersFailed(errorMsg: e.toString()));
-      //! Check the error message
-    }
+    final result =
+        await charactersRepository.fetchCharactersData(isMore: isMore);
+    result.when(
+        onSuccess: (data) {
+          allCharacters = data;
+          emit(AllCharactersLoaded(charactersList: data));
+        },
+        onFailure: (error) => emit(AllCharactersFailed(errorModel: error)));
   }
 
   //* assigning the values of the searched elements to the searchedCharacters by looping around each element of the allCharacters list and filtering based on the condintion we've put

@@ -1,4 +1,5 @@
-import 'package:rick_and_morty_app/features/characters/data/model/characters_model.dart';
+import 'package:rick_and_morty_app/core/networking/api_result.dart';
+import 'package:rick_and_morty_app/features/characters/data/models/characters_model.dart';
 import 'package:rick_and_morty_app/features/characters/data/web_services/characters_services.dart';
 import 'package:rick_and_morty_app/features/characters/domain/repos/characters_repository.dart';
 
@@ -8,13 +9,17 @@ class CharactersRepositoryImpl extends CharactersRepository {
   List<CharactersModel> allCharactersList = [];
 
   @override
-  Future<List<CharactersModel>> fetchCharactersData(
+  Future<ApiResult<List<CharactersModel>>> fetchCharactersData(
       {bool isMore = false}) async {
-    final characterList =
-        await charactersServices.getCharacterData(isMore: isMore);
-    allCharactersList += characterList
-        .map((character) => CharactersModel.fromJson(character))
-        .toList();
-    return allCharactersList;
+    try {
+      final characterList =
+          await charactersServices.getCharacterData(isMore: isMore);
+      allCharactersList += characterList
+          .map((character) => CharactersModel.fromJson(character))
+          .toList();
+      return ApiResult.success(allCharactersList);
+    } catch (e) {
+      return ApiResult.failure(e);
+    }
   }
 }

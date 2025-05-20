@@ -1,4 +1,5 @@
-import 'package:rick_and_morty_app/features/characters/data/model/characters_model.dart';
+import 'package:rick_and_morty_app/core/networking/api_error_model.dart';
+import 'package:rick_and_morty_app/features/characters/data/models/characters_model.dart';
 
 class CharactersState {}
 
@@ -10,8 +11,8 @@ class AllCharactersLoaded extends CharactersState {
 }
 
 class AllCharactersFailed extends CharactersState {
-  final String errorMsg;
-  AllCharactersFailed({required this.errorMsg});
+  final ApiErrorModel errorModel;
+  AllCharactersFailed({required this.errorModel});
 }
 
 class AllCharactersFiltered extends CharactersState {

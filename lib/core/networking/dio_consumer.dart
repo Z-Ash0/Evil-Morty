@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:rick_and_morty_app/core/utils/api.dart';
+import 'package:rick_and_morty_app/core/utils/api_const.dart';
 
 class DioConsumer {
   final Dio dio = Dio();

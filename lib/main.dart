@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:rick_and_morty_app/core/responsive/size_detection_helper.dart';
 import 'package:rick_and_morty_app/core/responsive/size_provider.dart';
 import 'package:rick_and_morty_app/core/routes/app_routes.dart';
+import 'package:rick_and_morty_app/core/services/service_locator.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await registerServices();
   runApp(
     DevicePreview(
       enabled: true,

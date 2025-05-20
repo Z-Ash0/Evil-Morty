@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty_app/features/characters/presentation/manager/characters_cubit/characters_cubit.dart';
 import 'package:rick_and_morty_app/core/responsive/size_detection_helper.dart';
 import 'package:rick_and_morty_app/core/utils/app_colors.dart';
-import 'package:rick_and_morty_app/features/characters/data/model/characters_model.dart';
+import 'package:rick_and_morty_app/features/characters/data/models/characters_model.dart';
 
 class SearchTextField extends StatefulWidget {
   const SearchTextField({super.key, required this.allCharactersList});

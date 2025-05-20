@@ -1,4 +1,6 @@
-import 'package:rick_and_morty_app/core/utils/api.dart';
+import 'package:rick_and_morty_app/core/utils/api_const.dart';
+import 'package:rick_and_morty_app/features/characters/data/models/location.dart';
+import 'package:rick_and_morty_app/features/characters/data/models/origin.dart';
 
 class CharactersModel {
   final int id;
@@ -37,21 +39,5 @@ class CharactersModel {
       origin: Origin.fromJson(jsonFile[ApiKeys.origin]),
       location: Location.fromJson(jsonFile[ApiKeys.location]),
     );
-  }
-}
-
-class Origin {
-  final String name;
-  Origin({required this.name});
-  factory Origin.fromJson(jsonFile) {
-    return Origin(name: jsonFile[ApiKeys.name]);
-  }
-}
-
-class Location {
-  final String name;
-  Location({required this.name});
-  factory Location.fromJson(jsonFile) {
-    return Location(name: jsonFile[ApiKeys.name]);
   }
 }
