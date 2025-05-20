@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rick_and_morty_app/core/cubit/characters_cubit.dart';
+import 'package:rick_and_morty_app/features/character_details/presentation/manager/characters_cubit/characters_cubit.dart';
 import 'package:rick_and_morty_app/core/responsive/size_detection_helper.dart';
 import 'package:rick_and_morty_app/core/utils/app_colors.dart';
-import 'package:rick_and_morty_app/features/characters/model/characters_model.dart';
+import 'package:rick_and_morty_app/features/characters/data/model/characters_model.dart';
 
 class SearchTextField extends StatefulWidget {
   const SearchTextField({super.key, required this.allCharactersList});
@@ -18,7 +18,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.secondaryColor.withOpacity(0.4),
+        color: AppColors.secondaryColor.withValues(alpha: 0.4),
         borderRadius: BorderRadius.circular(5),
       ),
       child: TextField(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rick_and_morty_app/core/responsive/size_detection_helper.dart';
 import 'package:rick_and_morty_app/core/responsive/size_provider.dart';
 import 'package:rick_and_morty_app/core/utils/app_constants.dart';
-import 'package:rick_and_morty_app/features/characters/model/characters_model.dart';
+import 'package:rick_and_morty_app/features/characters/data/model/characters_model.dart';
 import 'package:rick_and_morty_app/features/characters/presentation/widgets/cached_image.dart';
 
 class CharacterItem extends StatelessWidget {

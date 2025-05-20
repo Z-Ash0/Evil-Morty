@@ -14,7 +14,7 @@ class CustomIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.secondaryColor.withOpacity(0.4),
+        color: AppColors.secondaryColor.withValues(alpha: 0.4),
         borderRadius: BorderRadius.circular(5),
       ),
       child: IconButton(

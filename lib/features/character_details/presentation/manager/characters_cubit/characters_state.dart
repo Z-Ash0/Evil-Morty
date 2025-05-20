@@ -1,4 +1,4 @@
-import 'package:rick_and_morty_app/features/characters/model/characters_model.dart';
+import 'package:rick_and_morty_app/features/characters/data/model/characters_model.dart';
 
 class CharactersState {}
 

@@ -1,0 +1,2 @@
+D:/mobile app dev/tutorials/my projects/rick_and_morty_app/android/app/.cxx/Debug/641k373f/armeabi-v7a/CMakeFiles/edit_cache.dir
+D:/mobile app dev/tutorials/my projects/rick_and_morty_app/android/app/.cxx/Debug/641k373f/armeabi-v7a/CMakeFiles/rebuild_cache.dir

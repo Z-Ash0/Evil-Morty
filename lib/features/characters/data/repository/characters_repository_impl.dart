@@ -1,11 +1,13 @@
-import 'package:rick_and_morty_app/features/characters/model/characters_model.dart';
-import 'package:rick_and_morty_app/features/characters/web_services/characters_services.dart';
+import 'package:rick_and_morty_app/features/characters/data/model/characters_model.dart';
+import 'package:rick_and_morty_app/features/characters/domain/repos/characters_repository.dart';
+import 'package:rick_and_morty_app/features/character_details/data/web_services/characters_services.dart';
 
-class CharactersRepository {
-  CharactersRepository(this.charactersServices);
+class CharactersRepositoryImpl extends CharactersRepository {
+  CharactersRepositoryImpl(this.charactersServices);
   final CharactersServices charactersServices;
   List<CharactersModel> allCharactersList = [];
 
+  @override
   Future<List<CharactersModel>> fetchCharactersData(
       {bool isMore = false}) async {
     final characterList =

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rick_and_morty_app/core/cubit/characters_cubit.dart';
+import 'package:rick_and_morty_app/features/character_details/presentation/manager/characters_cubit/characters_cubit.dart';
 import 'package:rick_and_morty_app/core/responsive/size_detection_helper.dart';
 import 'package:rick_and_morty_app/core/responsive/size_provider.dart';
 import 'package:rick_and_morty_app/core/utils/app_assets.dart';
-import 'package:rick_and_morty_app/features/characters/model/characters_model.dart';
+import 'package:rick_and_morty_app/features/characters/data/model/characters_model.dart';
 import 'package:rick_and_morty_app/features/characters/presentation/widgets/custom_icon_button.dart';
 import 'package:rick_and_morty_app/features/characters/presentation/widgets/search_text_field.dart';
 
