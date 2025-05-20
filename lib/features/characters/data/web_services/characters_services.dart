@@ -18,7 +18,7 @@ class CharactersServices {
       }
       final response =
           await dio.get('${EndPoints.characters}?page=$pageNumber');
-      return response.data[Api.results];
+      return response.data[ApiKeys.results];
     } on DioException {
       //! Don't forget to handle this exception
       return [];

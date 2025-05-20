@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rick_and_morty_app/features/character_details/presentation/manager/characters_cubit/characters_state.dart';
+import 'package:rick_and_morty_app/features/characters/presentation/manager/characters_cubit/characters_state.dart';
 import 'package:rick_and_morty_app/features/characters/data/model/characters_model.dart';
 import 'package:rick_and_morty_app/features/characters/data/repository/characters_repository_impl.dart';
 

@@ -26,16 +26,16 @@ class CharactersModel {
 
   factory CharactersModel.fromJson(Map<String, dynamic> jsonFile) {
     return CharactersModel(
-      id: jsonFile[Api.id],
-      name: jsonFile[Api.name],
-      status: jsonFile[Api.status],
-      kind: jsonFile[Api.species],
-      gender: jsonFile[Api.gender],
-      type: jsonFile[Api.type],
-      image: jsonFile[Api.image],
-      episodes: jsonFile[Api.episode],
-      origin: Origin.fromJson(jsonFile[Api.origin]),
-      location: Location.fromJson(jsonFile[Api.location]),
+      id: jsonFile[ApiKeys.id],
+      name: jsonFile[ApiKeys.name],
+      status: jsonFile[ApiKeys.status],
+      kind: jsonFile[ApiKeys.species],
+      gender: jsonFile[ApiKeys.gender],
+      type: jsonFile[ApiKeys.type],
+      image: jsonFile[ApiKeys.image],
+      episodes: jsonFile[ApiKeys.episode],
+      origin: Origin.fromJson(jsonFile[ApiKeys.origin]),
+      location: Location.fromJson(jsonFile[ApiKeys.location]),
     );
   }
 }
@@ -44,7 +44,7 @@ class Origin {
   final String name;
   Origin({required this.name});
   factory Origin.fromJson(jsonFile) {
-    return Origin(name: jsonFile[Api.name]);
+    return Origin(name: jsonFile[ApiKeys.name]);
   }
 }
 
@@ -52,6 +52,6 @@ class Location {
   final String name;
   Location({required this.name});
   factory Location.fromJson(jsonFile) {
-    return Location(name: jsonFile[Api.name]);
+    return Location(name: jsonFile[ApiKeys.name]);
   }
 }
