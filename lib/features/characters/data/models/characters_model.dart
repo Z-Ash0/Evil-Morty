@@ -1,17 +1,31 @@
+import 'package:hive/hive.dart';
 import 'package:rick_and_morty_app/core/utils/api_const.dart';
 import 'package:rick_and_morty_app/features/characters/data/models/location.dart';
 import 'package:rick_and_morty_app/features/characters/data/models/origin.dart';
 
+part 'characters_model.g.dart';
+
+@HiveType(typeId: 0)
 class CharactersModel {
+  @HiveField(0)
   final int id;
+  @HiveField(1)
   final String name;
+  @HiveField(2)
   final String status;
+  @HiveField(3)
   final String kind;
+  @HiveField(4)
   final String gender;
+  @HiveField(5)
   final String? type;
+  @HiveField(6)
   final String image;
+  @HiveField(7)
   final List<dynamic> episodes;
+  @HiveField(8)
   final Origin origin;
+  @HiveField(9)
   final Location location;
 
   CharactersModel(

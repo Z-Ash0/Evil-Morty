@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:rick_and_morty_app/core/utils/api_const.dart';
 
 class DioConsumer {
-  final Dio dio = Dio();
-  DioConsumer() {
+  final Dio dio;
+  DioConsumer(this.dio) {
     dio.options.baseUrl = EndPoints.baseUrl;
     dio.interceptors.add(LogInterceptor(
         request: true, requestBody: true, responseBody: true, error: true));
