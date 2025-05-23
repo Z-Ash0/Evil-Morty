@@ -9,6 +9,7 @@ import 'package:rick_and_morty_app/core/utils/app_colors.dart';
 import 'package:rick_and_morty_app/features/characters/data/models/characters_model.dart';
 import 'package:rick_and_morty_app/features/characters/presentation/widgets/custom_app_bar.dart';
 import 'package:rick_and_morty_app/features/characters/presentation/widgets/character_item.dart';
+import 'package:rick_and_morty_app/features/characters/presentation/widgets/error_viewer_widget.dart';
 
 class CharactersScreen extends StatefulWidget {
   const CharactersScreen({super.key});
@@ -49,32 +50,33 @@ class _CharactersScreenState extends State<CharactersScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.bgColor,
-        body: CustomScrollView(
-          controller: scrollController,
-          slivers: [
-            SliverAppBar(
-              toolbarHeight: context.sizeProvider.height / 18,
-              backgroundColor: AppColors.bgColor,
-              surfaceTintColor: Colors.transparent,
-              title: CustomAppBar(
-                  allCharacters: context.read<CharactersCubit>().allCharacters),
-              floating: true,
-            ),
-            SliverToBoxAdapter(
-              child: Center(
-                child: Image.asset(
-                  Assets.assetsHomePage,
-                  width: context.sizeProvider.height / 3.15,
-                  height: context.sizeProvider.height / 3.15,
-                  fit: BoxFit.cover,
+        body: RefreshIndicator(
+          onRefresh: context.read<CharactersCubit>().getCharactersFromRepo,
+          child: CustomScrollView(
+            controller: scrollController,
+            slivers: [
+              SliverAppBar(
+                toolbarHeight: context.sizeProvider.height / 18,
+                backgroundColor: AppColors.bgColor,
+                surfaceTintColor: Colors.transparent,
+                title: CustomAppBar(
+                    allCharacters:
+                        context.read<CharactersCubit>().allCharacters),
+                floating: true,
+              ),
+              SliverToBoxAdapter(
+                child: Center(
+                  child: Image.asset(
+                    Assets.assetsHomePage,
+                    width: context.sizeProvider.height / 3.15,
+                    height: context.sizeProvider.height / 3.15,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-            ),
-            SliverPadding(
-              padding: EdgeInsets.symmetric(horizontal: context.setMinSize(10)),
-              sliver: blocWidget(),
-            ),
-          ],
+              blocWidget(),
+            ],
+          ),
         ),
       ),
     );
@@ -99,8 +101,14 @@ class _CharactersScreenState extends State<CharactersScreen> {
               context.read<CharactersCubit>().allCharacters);
         } else if (state is AllCharactersFiltered) {
           return buildCharacterItems(state.searchedCharacters);
+        } else if (state is AllCharactersFailed) {
+          return SliverToBoxAdapter(
+            child: ErrorViewerWidget(
+                icon: state.errorModel.icon,
+                errorMsg: state.errorModel.message),
+          );
         } else {
-          return const Center(child: CircularProgressIndicator());
+          return Container();
         }
       },
     );

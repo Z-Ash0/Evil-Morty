@@ -1,13 +1,25 @@
+import 'package:rick_and_morty_app/core/local_data_storage/local_data_storage.dart';
 import 'package:rick_and_morty_app/features/characters/data/models/characters_model.dart';
 
 abstract class CharactersLocalDataSrc {
-  List<CharactersModel> getCharacterData();
+  List<CharactersModel> getCachedCharacters();
+  Future<void> cacheCharacters(List<CharactersModel> characters);
+  bool hassCachedData();
 }
 
 class CharactersLocalDataSrcImpl extends CharactersLocalDataSrc {
+  final LocalDataStorage<CharactersModel> localDataStorage;
+  CharactersLocalDataSrcImpl({required this.localDataStorage});
+
   @override
-  List<CharactersModel> getCharacterData() {
-    // TODO: implement getCharacterData
-    throw UnimplementedError();
+  Future<void> cacheCharacters(List<CharactersModel> characters) async {
+    await localDataStorage.clear();
+    await localDataStorage.addAll(characters);
   }
+
+  @override
+  List<CharactersModel> getCachedCharacters() => localDataStorage.getAll();
+
+  @override
+  bool hassCachedData() => getCachedCharacters().isNotEmpty;
 }

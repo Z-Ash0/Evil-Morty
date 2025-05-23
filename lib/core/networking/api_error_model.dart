@@ -10,7 +10,7 @@ class ApiErrorModel {
       {required this.message, required this.icon, required this.statusCode});
   factory ApiErrorModel.defaultError() {
     return ApiErrorModel(
-      message: 'Something went wrong',
+      message: 'Something went wrong. Try again later',
       icon: Icons.error,
       statusCode: LocalStatuscode.defaultError,
     );

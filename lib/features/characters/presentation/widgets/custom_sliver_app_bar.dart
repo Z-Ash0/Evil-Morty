@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty_app/core/responsive/size_detection_helper.dart';
 import 'package:rick_and_morty_app/core/utils/app_colors.dart';
@@ -21,8 +22,8 @@ class CustomSliverAppBar extends StatelessWidget {
       flexibleSpace: FlexibleSpaceBar(
         background: Hero(
           tag: character.id,
-          child: Image.network(
-            character.image,
+          child: CachedNetworkImage(
+            imageUrl: character.image,
             fit: BoxFit.cover,
           ),
         ),

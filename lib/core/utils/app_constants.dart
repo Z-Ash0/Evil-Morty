@@ -12,6 +12,8 @@ const String indent = 'indent';
 const String image = 'image';
 const String title = 'title';
 
+const charactersBoxName = 'characters';
+
 const List<Map<String, dynamic>> screenList = [
   {
     image: Assets.assetsOnBoarding1,

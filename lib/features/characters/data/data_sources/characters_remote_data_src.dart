@@ -2,7 +2,7 @@ import 'package:rick_and_morty_app/core/networking/dio_consumer.dart';
 import 'package:rick_and_morty_app/core/utils/api_const.dart';
 
 abstract class CharactersRemoteDataSrc {
-  Future<List<dynamic>> getCharacterData({bool isMore = false});
+  Future<List<dynamic>> getAllCharacters({bool isMore = false});
 }
 
 class CharactersRemoteDataSrcImpl extends CharactersRemoteDataSrc {
@@ -12,7 +12,7 @@ class CharactersRemoteDataSrcImpl extends CharactersRemoteDataSrc {
   int pageNumber = 1;
 
   @override
-  Future<List<dynamic>> getCharacterData({bool isMore = false}) async {
+  Future<List<dynamic>> getAllCharacters({bool isMore = false}) async {
     if (isMore) {
       pageNumber++;
     }

@@ -57,8 +57,14 @@ class ApiErrorHandler {
                   statusCode: LocalStatuscode.unknown,
                 ));
       }
-      return ApiErrorModel.defaultError();
+      return ApiErrorModel(
+          message: error.toString(),
+          icon: Icons.error_outline,
+          statusCode: LocalStatuscode.unknown);
     }
-    return ApiErrorModel.defaultError();
+    return ApiErrorModel(
+        message: error.toString(),
+        icon: Icons.error_outline,
+        statusCode: LocalStatuscode.unknown);
   }
 }

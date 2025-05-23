@@ -25,7 +25,7 @@ class CharactersCubit extends Cubit<CharactersState> {
         await charactersRepository.fetchCharactersData(isMore: isMore);
     result.when(
         onSuccess: (data) {
-          allCharacters = data;
+          isMore ? allCharacters += data : allCharacters = data;
           emit(AllCharactersLoaded(charactersList: data));
         },
         onFailure: (error) => emit(AllCharactersFailed(errorModel: error)));
