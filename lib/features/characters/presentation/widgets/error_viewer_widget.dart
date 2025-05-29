@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rick_and_morty_app/core/responsive/size_detection_helper.dart';
 
 class ErrorViewerWidget extends StatelessWidget {
   const ErrorViewerWidget(
@@ -8,7 +9,9 @@ class ErrorViewerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(context.setMinSize(20)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -18,6 +21,14 @@ class ErrorViewerWidget extends StatelessWidget {
             color: Colors.red,
           ),
           Text(errorMsg, style: const TextStyle(fontSize: 24)),
+          SizedBox(height: context.setMinSize(20)),
+          Text(
+            'Pull down to refresh',
+            style: TextStyle(
+              color: Colors.grey,
+              fontSize: context.setMinSize(14),
+            ),
+          ),
         ],
       ),
     );

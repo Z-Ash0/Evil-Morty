@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rick_and_morty_app/core/functions/show_toast.dart';
 import 'package:rick_and_morty_app/features/characters/presentation/manager/characters_cubit/characters_cubit.dart';
 import 'package:rick_and_morty_app/features/characters/presentation/manager/characters_cubit/characters_state.dart';
 import 'package:rick_and_morty_app/core/responsive/device_utilities.dart';
@@ -19,24 +20,33 @@ class CharactersScreen extends StatefulWidget {
 }
 
 class _CharactersScreenState extends State<CharactersScreen> {
-  ScrollController scrollController = ScrollController();
+  late ScrollController scrollController;
+  //* A flag to prevent multiple API calls when pagination
+  bool isLoadingMorePages = false;
   @override
   void initState() {
     super.initState();
-
-    //* The purpose of the next line is to provide the Bloc bcz as we know BlocProvider provides Bloc lazely so we should invoke it explicitly
     BlocProvider.of<CharactersCubit>(context).getCharactersFromRepo();
     //* Adding a scrolling controller to detect the max scrolling extent to demand more data chuncks from api
-    scrollController.addListener(() {
-      if (scrollController.position.pixels ==
-              scrollController.position.maxScrollExtent &&
-          context.read<CharactersCubit>().txtController.text.isEmpty) {
-        setState(() {
-          BlocProvider.of<CharactersCubit>(context)
-              .getCharactersFromRepo(isMore: true);
-        });
+    scrollController = ScrollController();
+    _paginationListener();
+  }
+
+  void _paginationListener() {
+    scrollController.addListener(() async {
+      if (_checkIfCanLoadMore()) {
+        setState(() => isLoadingMorePages = true);
+        await BlocProvider.of<CharactersCubit>(context)
+            .getCharactersFromRepo(isMore: true);
+        setState(() => isLoadingMorePages = false);
       }
     });
+  }
+
+  bool _checkIfCanLoadMore() {
+    final currentPosition = scrollController.position.pixels;
+    final maxPosition = scrollController.position.maxScrollExtent;
+    return currentPosition >= .7 * maxPosition && !isLoadingMorePages;
   }
 
   @override
@@ -54,6 +64,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
           onRefresh: context.read<CharactersCubit>().getCharactersFromRepo,
           child: CustomScrollView(
             controller: scrollController,
+            physics: const AlwaysScrollableScrollPhysics(),
             slivers: [
               SliverAppBar(
                 toolbarHeight: context.sizeProvider.height / 18,
@@ -83,7 +94,8 @@ class _CharactersScreenState extends State<CharactersScreen> {
   }
 
   Widget blocWidget() {
-    return BlocBuilder<CharactersCubit, CharactersState>(
+    return BlocConsumer<CharactersCubit, CharactersState>(
+      listener: (context, state) {},
       builder: (context, state) {
         if (state is AllCharactersLoading) {
           return SliverToBoxAdapter(
@@ -96,19 +108,21 @@ class _CharactersScreenState extends State<CharactersScreen> {
             ),
           );
         } else if (state is AllCharactersLoaded) {
-          context.read<CharactersCubit>().allCharacters = state.charactersList;
-          return buildCharacterItems(
-              context.read<CharactersCubit>().allCharacters);
+          return buildCharacterItems(state.charactersList);
         } else if (state is AllCharactersFiltered) {
           return buildCharacterItems(state.searchedCharacters);
+        } else if (state is AllCharactersPaginationError) {
+          showToastMsg(state.errorMessage);
+          return buildCharacterItems(state.charactersList);
         } else if (state is AllCharactersFailed) {
-          return SliverToBoxAdapter(
+          return SliverFillRemaining(
+            hasScrollBody: false,
             child: ErrorViewerWidget(
                 icon: state.errorModel.icon,
                 errorMsg: state.errorModel.message),
           );
         } else {
-          return Container();
+          return const SliverToBoxAdapter(child: SizedBox.shrink());
         }
       },
     );

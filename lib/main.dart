@@ -8,12 +8,15 @@ import 'package:rick_and_morty_app/core/responsive/size_detection_helper.dart';
 import 'package:rick_and_morty_app/core/responsive/size_provider.dart';
 import 'package:rick_and_morty_app/core/routes/app_routes.dart';
 import 'package:rick_and_morty_app/core/services/service_locator.dart';
+import 'package:rick_and_morty_app/core/utils/app_constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Hive.initFlutter();
   HiveAdapterRegister.registerAll();
+  await Hive.deleteFromDisk();
+  await Hive.deleteBoxFromDisk(charactersBoxName);
   await registerServices();
   Bloc.observer = MyBlocObserver();
   runApp(

@@ -5,9 +5,13 @@ class ApiErrorModel {
   final String message;
   final IconData icon;
   final int statusCode;
+  final bool isLastPage;
 
   ApiErrorModel(
-      {required this.message, required this.icon, required this.statusCode});
+      {required this.message,
+      required this.icon,
+      required this.statusCode,
+      this.isLastPage = false});
   factory ApiErrorModel.defaultError() {
     return ApiErrorModel(
       message: 'Something went wrong. Try again later',

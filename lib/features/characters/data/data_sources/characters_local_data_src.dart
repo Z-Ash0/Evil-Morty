@@ -5,6 +5,7 @@ abstract class CharactersLocalDataSrc {
   List<CharactersModel> getCachedCharacters();
   Future<void> cacheCharacters(List<CharactersModel> characters);
   bool hassCachedData();
+  Future<void> clearCache();
 }
 
 class CharactersLocalDataSrcImpl extends CharactersLocalDataSrc {
@@ -13,7 +14,7 @@ class CharactersLocalDataSrcImpl extends CharactersLocalDataSrc {
 
   @override
   Future<void> cacheCharacters(List<CharactersModel> characters) async {
-    await localDataStorage.clear();
+    // await localDataStorage.clear();
     await localDataStorage.addAll(characters);
   }
 
@@ -22,4 +23,6 @@ class CharactersLocalDataSrcImpl extends CharactersLocalDataSrc {
 
   @override
   bool hassCachedData() => getCachedCharacters().isNotEmpty;
+  @override
+  Future<void> clearCache() async => await localDataStorage.clear();
 }

@@ -1,10 +1,9 @@
-import 'package:rick_and_morty_app/core/networking/api_error_handler.dart';
 import 'package:rick_and_morty_app/core/networking/api_error_model.dart';
 
 class ApiResult<T> {
   ApiResult._();
   factory ApiResult.success(T data) = ApiSuccess<T>;
-  factory ApiResult.failure(Object error) = ApiFailure<T>;
+  factory ApiResult.failure(ApiErrorModel error) = ApiFailure<T>;
 
   when({
     required Function(T data) onSuccess,
@@ -13,7 +12,7 @@ class ApiResult<T> {
     if (this is ApiSuccess<T>) {
       return onSuccess((this as ApiSuccess<T>).data);
     } else if (this is ApiFailure<T>) {
-      return onFailure(ApiErrorHandler.handle((this as ApiFailure<T>).error));
+      return onFailure((this as ApiFailure<T>).error);
     }
   }
 }
@@ -24,6 +23,6 @@ class ApiSuccess<T> extends ApiResult<T> {
 }
 
 class ApiFailure<T> extends ApiResult<T> {
-  final Object error;
+  final ApiErrorModel error;
   ApiFailure(this.error) : super._();
 }

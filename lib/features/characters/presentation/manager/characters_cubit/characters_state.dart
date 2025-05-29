@@ -15,6 +15,16 @@ class AllCharactersFailed extends CharactersState {
   AllCharactersFailed({required this.errorModel});
 }
 
+class AllCharactersPaginationError extends CharactersState {
+  final List<CharactersModel> charactersList;
+  final String errorMessage;
+
+  AllCharactersPaginationError({
+    required this.charactersList,
+    required this.errorMessage,
+  });
+}
+
 class AllCharactersFiltered extends CharactersState {
   final List<CharactersModel> searchedCharacters;
 

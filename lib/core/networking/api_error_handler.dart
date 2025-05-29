@@ -39,12 +39,25 @@ class ApiErrorHandler {
                   icon: Icons.security,
                   statusCode: LocalStatuscode.badCertificate,
                 ),
-            badResponse: () => ApiErrorModel(
-                message:
-                    "Server returned an unexpected response. Please try again.",
-                icon: Icons.warning,
-                statusCode:
-                    error.response?.statusCode ?? LocalStatuscode.badResponse),
+            badResponse: () {
+              final statusCode =
+                  error.response?.statusCode ?? LocalStatuscode.badResponse;
+
+              if (statusCode == 404) {
+                return ApiErrorModel(
+                  message:
+                      "You have reached the end. No more characters to load.",
+                  icon: Icons.info_outline,
+                  statusCode: 404,
+                  isLastPage: true,
+                );
+              }
+              return ApiErrorModel(
+                  message:
+                      "Server returned an unexpected response. Please try again.",
+                  icon: Icons.warning,
+                  statusCode: statusCode);
+            },
             cancel: () => ApiErrorModel(
                   message: "The request was cancelled. Please try again.",
                   icon: Icons.cancel,
