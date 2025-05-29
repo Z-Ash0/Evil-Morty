@@ -46,7 +46,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
   bool _checkIfCanLoadMore() {
     final currentPosition = scrollController.position.pixels;
     final maxPosition = scrollController.position.maxScrollExtent;
-    return currentPosition >= .7 * maxPosition && !isLoadingMorePages;
+    return (currentPosition >= .7 * maxPosition) && !isLoadingMorePages;
   }
 
   @override

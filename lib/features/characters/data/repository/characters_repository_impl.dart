@@ -27,17 +27,16 @@ class CharactersRepositoryImpl extends CharactersRepository {
       if (!isMore) {
         currentPage = 1;
         hasMorePages = true;
-      } else {
-        currentPage++;
-        debugPrint(
-            'The current page is: $currentPage ----------------------------');
       }
-      final newCharacters = await _getRemoteCharactersList();
+
+      final newCharacters = await _getRemoteCharactersList(
+          pageNumber: isMore ? currentPage + 1 : currentPage);
 
       if (!isMore) {
         await charactersLocalDataSrc.clearCache();
         await charactersLocalDataSrc.cacheCharacters(newCharacters);
       } else {
+        currentPage++;
         if (newCharacters.isEmpty) {
           hasMorePages = false;
         } else {
@@ -54,7 +53,7 @@ class CharactersRepositoryImpl extends CharactersRepository {
       debugPrint(
           'An error happened -----------------------------------------------------------------------------------------------------------------------');
       final ApiErrorModel errorModel = ApiErrorHandler.handle(e);
-      if (errorModel.isLastPage) {
+      if (isMore && errorModel.isLastPage) {
         hasMorePages = false;
         return ApiResult.success([]);
       }
@@ -62,9 +61,10 @@ class CharactersRepositoryImpl extends CharactersRepository {
     }
   }
 
-  Future<List<CharactersModel>> _getRemoteCharactersList() async {
+  Future<List<CharactersModel>> _getRemoteCharactersList(
+      {required int pageNumber}) async {
     final characterList =
-        await charactersRemoteDataSrc.getAllCharacters(pageNumber: currentPage);
+        await charactersRemoteDataSrc.getAllCharacters(pageNumber: pageNumber);
     return characterList
         .map((character) => CharactersModel.fromJson(character))
         .toList();

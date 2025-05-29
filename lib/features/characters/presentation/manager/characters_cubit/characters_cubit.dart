@@ -18,7 +18,10 @@ class CharactersCubit extends Cubit<CharactersState> {
   }
 
   Future<void> getCharactersFromRepo({bool isMore = false}) async {
-    isMore ? null : emit(AllCharactersLoading());
+    if (!isMore) {
+      allCharacters.clear();
+      emit(AllCharactersLoading());
+    }
 
     final result =
         await charactersRepository.fetchCharactersData(isMore: isMore);
@@ -31,8 +34,9 @@ class CharactersCubit extends Cubit<CharactersState> {
           error.statusCode == LocalStatuscode.connectionError) {
         emit(AllCharactersPaginationError(
             errorMessage: error.message, charactersList: allCharacters));
+      } else {
+        emit(AllCharactersFailed(errorModel: error));
       }
-      emit(AllCharactersFailed(errorModel: error));
     });
   }
 
